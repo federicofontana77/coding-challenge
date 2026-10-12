@@ -1,0 +1,27 @@
+services:
+  node-api:
+    build:
+      context: ./node-api
+    container_name: challenge-node-api
+    environment:
+      PORT: "3000"
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  go-api:
+    build:
+      context: ./go-api
+    container_name: challenge-go-api
+    environment:
+      PORT: "8080"
+      NODE_API_URL: "http://node-api:3000"
+    ports:
+      - "8080:8080"
+    depends_on:
+      node-api:
+        condition: service_healthy
