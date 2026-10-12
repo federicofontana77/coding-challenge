@@ -91,3 +91,19 @@ curl -X POST http://localhost:8080/factorize \
 ## Verificación matemática
 
 Para la salida QR, Q tiene columnas ortonormales y R es triangular superior. Se cumple aproximadamente `A = Q × R`, con pequeñas diferencias por redondeo.
+
+## Despliegue
+
+- API Go: https://coding-challenge-go-api-e8s6.onrender.com
+- API Node.js: https://coding-challenge-node-api-j8z1.onrender.com
+
+### Probar la API Go
+
+Enviar una solicitud POST a `/factorize` con el cuerpo:
+
+    {"matrix":[[1,2],[3,4],[5,6]]}
+
+La respuesta incluye las matrices Q y R y las estadísticas calculadas
+por la API Node.js.
+
+Ambos servicios exponen un endpoint GET `/health`.
